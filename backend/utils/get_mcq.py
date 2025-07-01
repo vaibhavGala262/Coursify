@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os 
 from langchain_groq import ChatGroq
-from models.schema import MCQOption, MCQuestion, MCQResponse
+from models.mcq_question import MCQOption, MCQuestion, MCQResponse
 from langchain.prompts import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 
@@ -11,17 +11,15 @@ load_dotenv() # Load environment variables from .env file
 model = os.getenv('MODEL')
 api_key = os.getenv('GROQ_API_KEY')
 
-
-llm = ChatGroq(model = model , api_key=api_key)
-
-
+if not model or not api_key:
+    raise EnvironmentError("MODEL and GROQ_API_KEY must be set in the .env file")
 
 def get_mcq(topic: str, num_questions: int = 5, difficulty: str = "Medium"):
     # Initialize Groq LLM
     llm = ChatGroq(
         temperature=0.3,
-        groq_api_key="your-groq-api-key",
-        model_name="mixtral-8x7b-32768"  # or "llama2-70b-4096"
+        groq_api_key=api_key,
+        model_name=model # or "llama2-70b-4096"
     )
     
     # Create output parser

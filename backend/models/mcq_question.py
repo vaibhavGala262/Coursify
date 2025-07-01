@@ -14,3 +14,7 @@ class MCQuestion(BaseModel):
 
 class MCQResponse(BaseModel):
     questions: List[MCQuestion] = Field(description="List of generated MCQs")
+
+
+
+    

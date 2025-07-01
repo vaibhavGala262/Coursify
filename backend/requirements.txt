@@ -4,3 +4,7 @@ pydantic
 langchain_groq
 dotenv
 langchain
+markdown
+langchain_community
+youtube_search
+google-api-python-client
